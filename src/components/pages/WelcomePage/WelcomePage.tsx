@@ -8,12 +8,6 @@ import GlobalStyles from "../../GlobalStyles";
 
 import netlifyIdentity from "netlify-identity-widget";
 
-import Particles from "react-tsparticles";
-import "./particlesBg.css";
-import particlesLight from "./particlesLight.json";
-import particlesDark from "./particlesDark.json";
-import { ISourceOptions } from 'tsparticles';
-
 type Props = {};
 type State = {
     dark?: boolean
@@ -51,10 +45,9 @@ export default class WelcomePage extends React.Component<Props, State> {
 
     render() {
         const theme = (this.state.dark ? Styles.welcomeCardDark : Styles.welcomeCardLight);
-        const particlesOption = (this.state.dark ? particlesDark : particlesLight)
+        
         return (
             <div>
-                <Particles options={particlesOption as ISourceOptions}/>
                 <Template dark={this.state.dark} toggleDarkMode={this.toggleDarkMode}>
                     <div className={cx( Styles.horizontalCenter )}>
                         <div className={cx( Styles.verticalCenter )}>

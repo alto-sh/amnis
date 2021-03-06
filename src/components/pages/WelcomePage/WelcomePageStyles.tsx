@@ -27,14 +27,6 @@ const Styles = {
     welcomeCardLight: css`
         background: whitesmoke;
         color: black;
-    `,
-    particlesBg: css`
-        width: 100%;
-        height: 100%;
-        position: fixed; !important
-        z-index: -1;
-        top: 0;
-        left: 0;
     `
 }
 
