@@ -8,6 +8,12 @@ import GlobalStyles from "../../GlobalStyles";
 
 import netlifyIdentity from "netlify-identity-widget";
 
+import Particles from "react-tsparticles";
+import "./particlesBg.css";
+import particlesLight from "./particlesLight.json";
+import particlesDark from "./particlesDark.json";
+import { ISourceOptions } from 'tsparticles';
+
 type Props = {};
 type State = {
     dark?: boolean
@@ -45,27 +51,31 @@ export default class WelcomePage extends React.Component<Props, State> {
 
     render() {
         const theme = (this.state.dark ? Styles.welcomeCardDark : Styles.welcomeCardLight);
+        const particlesOption = (this.state.dark ? particlesDark : particlesLight)
         return (
-            <Template dark={this.state.dark} toggleDarkMode={this.toggleDarkMode}>
-                <div className={cx( Styles.horizontalCenter )}>
-                    <div className={cx( Styles.verticalCenter )}>
-                        <div className={cx( Styles.welcomeCard, theme )}>
-                            <div style={{ padding: 20 }}>
-                                <h2>👋&nbsp;&nbsp;Welcome to Amnis!</h2>
-                                <p>A thought organizer for the 21st century.</p>
+            <div>
+                <Particles options={particlesOption as ISourceOptions}/>
+                <Template dark={this.state.dark} toggleDarkMode={this.toggleDarkMode}>
+                    <div className={cx( Styles.horizontalCenter )}>
+                        <div className={cx( Styles.verticalCenter )}>
+                            <div className={cx( Styles.welcomeCard, theme )}>
+                                <div style={{ padding: 20 }}>
+                                    <h2>👋&nbsp;&nbsp;Welcome to Amnis!</h2>
+                                    <p>A thought organizer for the 21st century.</p>
+                                </div>
+                                <br/>
+                                {/* Register & Log In Buttons */}
+                                <Button className={cx( GlobalStyles.amnisButton, GlobalStyles.positiveButton )} style={{ marginBottom: 10 }} onClick={() => { netlifyIdentity.open('signup'); }}>
+                                    Register
+                                </Button>
+                                <Button className={cx( GlobalStyles.amnisButton, GlobalStyles.negativeButton )} onClick={() => { netlifyIdentity.open('login'); }}>
+                                    Log In
+                                </Button>
                             </div>
-                            <br/>
-                            {/* Register & Log In Buttons */}
-                            <Button className={cx( GlobalStyles.amnisButton, GlobalStyles.positiveButton )} style={{ marginBottom: 10 }} onClick={() => { netlifyIdentity.open('signup'); }}>
-                                Register
-                            </Button>
-                            <Button className={cx( GlobalStyles.amnisButton, GlobalStyles.negativeButton )} onClick={() => { netlifyIdentity.open('login'); }}>
-                                Log In
-                            </Button>
                         </div>
                     </div>
-                </div>
-            </Template>
+                </Template>
+            </div>
         )
     }
 

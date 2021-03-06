@@ -6,11 +6,9 @@ const Styles = {
         transition: all .25s;
     `,
     templateDark: css`
-        background: #0D1117;
         color: white;
     `,
     templateLight: css`
-        background: #FBFAF5;
         color: black;
     `,
     pageHeader: css`
