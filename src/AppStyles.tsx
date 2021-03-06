@@ -3,6 +3,9 @@ import { css } from "emotion";
 const Styles = {
     
     background: css`
+        * {
+            color: #F5F5F5;
+        }
         background: #0D1117;
         height: 100vh;
     `,
@@ -24,7 +27,6 @@ const Styles = {
             margin-top: 0rem;
         }
         li {
-            color: white;
             padding:1rem;
             margin:1rem;
             width: 10rem;
@@ -37,6 +39,30 @@ const Styles = {
             background: #DC3545;
         }
     `,
+    chatContainer: css`
+    
+    `
+    ,
+    submitChat: css`
+        display: flex;
+        justify-content:center;
+        margin-top: 1rem;
+    `
+    ,
+    inputContainer: css`
+        input, button {
+            border: none;
+            background:rgba(255, 255, 255, 0.2);
+            padding:1rem;
+        }
+        button {
+            border-radius: 0px 10px 10px 0px;
+        }
+        input {
+            border-radius: 10px 0px 0px 10px;
+        }
+    `
+    ,
     chat: css`
         height:40rem;
         width: 30rem;

@@ -13,6 +13,11 @@ export default class App extends React.Component<Props, State> {
     }
  
     render() {
+
+        const sendChat = (msgDOM:any) => {
+            console.log(msgDOM.value);
+        }
+
         return (
             <BrowserRouter>
                 <Switch>
@@ -39,8 +44,18 @@ export default class App extends React.Component<Props, State> {
                                     <li>4</li>
                                     <li>5</li>
                                 </ul>
-                                <div className={Styles.chat}>
-                                    
+                                <div className={Styles.chatContainer}>
+                                    <div className={Styles.chat}>
+                                        
+                                    </div>
+                                    <div className={Styles.submitChat}>
+                                        <span className={Styles.inputContainer}>
+                                            <input id="chatInput" type="text" required/>
+                                            <button onClick={() => {
+                                                sendChat(document.getElementById("chatInput"))
+                                            }}>Send</button>
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
