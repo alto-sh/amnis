@@ -18,6 +18,8 @@
     "@fortawesome/free-solid-svg-icons": "^5.13.0",
     "@fortawesome/react-fontawesome": "^0.1.10",
     "@types/webfontloader": "^1.6.32",
+    "react-draggable": "^4.4.3",
+    "react-particles-js": "^3.4.1",
     "source-map-loader": "^1.0.0"
   },
   "devDependencies": {

@@ -3,6 +3,8 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import Styles from "./AppStyles";
 
+import Home from "./components/Pages/Home/Home";
+
 type State = {};
 type Props = {};
 
@@ -17,7 +19,7 @@ export default class App extends React.Component<Props, State> {
             <BrowserRouter>
                 <Switch>
                     {/* Paths */}
-                    <Route path="/"     component={ () => { return <h1>Hello, World!</h1>; } } exact/>
+                    <Route path="/"     component={ Home } exact/>
                 </Switch>
             </BrowserRouter>
         )
