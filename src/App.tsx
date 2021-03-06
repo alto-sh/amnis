@@ -17,7 +17,35 @@ export default class App extends React.Component<Props, State> {
             <BrowserRouter>
                 <Switch>
                     {/* Paths */}
-                    <Route path="/"     component={ () => { return <h1>Hello, World!</h1>; } } exact/>
+                    <Route path="/"     component={ () => { return (
+
+                    // <div className="background">
+                    //     <div className="ideasContainer">
+                    //         <ul className="ideas">
+                    //             <li>1</li>
+                    //             <li>2</li>
+                    //             <li>3</li>
+                    //         </ul>
+                    //     </div>
+                    // </div>
+
+                    <div className={Styles.background}>
+                        <div className={Styles.container}>
+                            <div className={Styles.ideasContainer}>
+                                <ul className={Styles.ideas}>
+                                    <li>1</li>
+                                    <li>2</li>
+                                    <li>3</li>
+                                    <li>4</li>
+                                    <li>5</li>
+                                </ul>
+                                <div className={Styles.chat}>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    ); } } exact/>
                 </Switch>
             </BrowserRouter>
         )
