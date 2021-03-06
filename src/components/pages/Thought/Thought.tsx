@@ -14,8 +14,13 @@ export default class Thought extends React.Component<Props, State> {
  
     render() {
 
-        const sendChat = (msgDOM:any) => {
+        const addThought = (msgDOM:any) => {
             console.log(msgDOM.value);
+            let ul = document.createElement("ul");
+            ul.innerHTML = (`<li>${new Date().toLocaleString()}</li><li>${msgDOM.value}</li>`);
+            let container:any = document.getElementById("thoughtChat");
+            console.log(container);
+            container.appendChild(ul);
         }
 
         return (
@@ -31,13 +36,15 @@ export default class Thought extends React.Component<Props, State> {
                         </ul>
                         <div className={ThoughtStyles.chatContainer}>
                             <div className={ThoughtStyles.chat}>
-                                
+                                <div id="thoughtChat" className={ThoughtStyles.messagesContainer}>
+                                    <ul><li>{new Date().toLocaleString()}</li><li>msg</li></ul>
+                                </div>
                             </div>
                             <div className={ThoughtStyles.submitChat}>
                                 <span className={ThoughtStyles.inputContainer}>
                                     <input id="chatInput" type="text" required/>
                                     <button onClick={() => {
-                                        sendChat(document.getElementById("chatInput"))
+                                        addThought(document.getElementById("chatInput"))
                                     }}>Send</button>
                                 </span>
                             </div>

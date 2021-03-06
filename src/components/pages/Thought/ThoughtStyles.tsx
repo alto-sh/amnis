@@ -68,6 +68,33 @@ const ThoughtStyles = {
         width: 30rem;
         background: rgba(255, 255, 255, 0.1);
         border-radius: 10px;
+        overflow-y: auto;
+
+    `,
+    messagesContainer: css`
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        ul:first-child {
+            margin-top:1rem;
+        }
+        ul:last-child {
+            margin-bottom: 1rem;
+        }
+        ul {
+            background: rgba(255, 255, 255, 0.1);
+            margin: 0.5rem;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-top: 1rem;
+            text-decoration: none;
+            list-style: none;
+            word-wrap: break-word;
+        }
+        li:first-child {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
     `
 }
 
