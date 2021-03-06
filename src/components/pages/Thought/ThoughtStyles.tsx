@@ -54,13 +54,14 @@ const ThoughtStyles = {
             background: #DC3545;
         }
         input {
+            width: 20rem;
             border-radius: 10px 0px 0px 10px;
         }
     `
     ,
     chat: css`
-        height:40rem;
-        width: 30rem;
+        height: 35rem;
+        width: 40rem;
         background: rgba(255, 255, 255, 0.1);
         border-radius: 10px 0px 0px 10px;
         overflow-y: auto;

@@ -22,6 +22,7 @@ export default class Thought extends React.Component<Props, State> {
             let container:any = document.getElementById("thoughtChat");
             console.log(container);
             container.appendChild(ul);
+            // container.scrollBy(0, container.scrollHeight);
         }
 
         return (
@@ -43,7 +44,7 @@ export default class Thought extends React.Component<Props, State> {
                             </div>
                             <div className={ThoughtStyles.submitChat}>
                                 <span className={ThoughtStyles.inputContainer}>
-                                    <input id="chatInput" type="text" required/>
+                                    <input id="chatInput" type="text" placeholder="Write your thought here..." required/>
                                     <button onClick={() => {
                                         let msgDOM:any = document.getElementById("chatInput");
                                         addThought(msgDOM)
