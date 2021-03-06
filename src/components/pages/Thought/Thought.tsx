@@ -15,6 +15,7 @@ export default class Thought extends React.Component<Props, State> {
     render() {
 
         const addThought = (msgDOM:any) => {
+            if (msgDOM.value.length <= 0) return;
             console.log(msgDOM.value);
             let ul = document.createElement("ul");
             ul.innerHTML = (`<li>${new Date().toLocaleString()}</li><li>${msgDOM.value}</li>`);
@@ -44,7 +45,9 @@ export default class Thought extends React.Component<Props, State> {
                                 <span className={ThoughtStyles.inputContainer}>
                                     <input id="chatInput" type="text" required/>
                                     <button onClick={() => {
-                                        addThought(document.getElementById("chatInput"))
+                                        let msgDOM:any = document.getElementById("chatInput");
+                                        addThought(msgDOM)
+                                        msgDOM.value = "";
                                     }}>Send</button>
                                 </span>
                             </div>

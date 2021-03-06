@@ -2,13 +2,6 @@ import { css } from "emotion";
 
 const ThoughtStyles = {
     
-    // background: css`
-    //     * {
-    //         color: #F5F5F5;
-    //     }
-    //     background: #0D1117;
-    //     height: 100vh;
-    // `,
     container: css`
         display:flex;
         justify-content:center;
@@ -27,6 +20,7 @@ const ThoughtStyles = {
             margin-top: 0rem;
         }
         li {
+            cursor: pointer;
             padding:1rem;
             margin:1rem;
             width: 10rem;
@@ -57,6 +51,7 @@ const ThoughtStyles = {
         }
         button {
             border-radius: 0px 10px 10px 0px;
+            background: #DC3545;
         }
         input {
             border-radius: 10px 0px 0px 10px;
@@ -67,8 +62,26 @@ const ThoughtStyles = {
         height:40rem;
         width: 30rem;
         background: rgba(255, 255, 255, 0.1);
-        border-radius: 10px;
+        border-radius: 10px 0px 0px 10px;
         overflow-y: auto;
+
+        ::-webkit-scrollbar {
+            width: 10px;
+            transition: 0.2s;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.5);
+            /* border-radius: 10px; */
+            transition: 0.1s;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.5);
+            /* border-radius: 10px; */
+            transition: 0.1s;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 0, 0, 0.5);
+        }
 
     `,
     messagesContainer: css`
@@ -82,7 +95,7 @@ const ThoughtStyles = {
             margin-bottom: 1rem;
         }
         ul {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.2);
             margin: 0.5rem;
             padding: 1rem;
             border-radius: 10px;
@@ -92,6 +105,7 @@ const ThoughtStyles = {
             word-wrap: break-word;
         }
         li:first-child {
+            // date
             color: rgba(255, 255, 255, 0.6);
         }
 
