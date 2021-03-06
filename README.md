@@ -1,2 +1,2 @@
-# easynf
-Boilerplate code for a react-typescript frontend.
+# Amnis
+A thought organizer app (DeltaHacks 7 Project!)
