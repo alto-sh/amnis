@@ -16,8 +16,8 @@ import netlifyIdentity from "netlify-identity-widget";
 import { faBlackberry } from "@fortawesome/free-brands-svg-icons";
 
 // import {useSelector, useDispatch} from "react-redux";
-// import {connect} from "react-redux";
-// import { add } from "../../../actions/index";
+import {connect} from "react-redux";
+import { add } from "../../../actions/index";
 
 type Props = {};
 type State = {
@@ -104,7 +104,7 @@ class StreamSpace extends React.Component<Props, State> {
         // this.props.add("test");
         //@ts-ignore
         // console.log(this.props.streamData);
-        console.log(this.props);
+        console.log("PROPS", this.props.streamsData);
 
         const Modal = () => {
             if (this.state.modalRes.length <= 0) {
@@ -175,18 +175,19 @@ class StreamSpace extends React.Component<Props, State> {
 }
 
 //@ts-ignore
-// const mapStateToProps = (state) => {
-//     return {
-//         streamsData: state.streamsReducer
-//     }
-// }
+const mapStateToProps = (state) => {
+    return {
+        streamsData: state.streamsReducer
+    }
+}
 
-// const mapDispatchToProps = () => {
-//     return {
-//         add
-//     }
-// }
+const mapDispatchToProps = () => {
+    return {
+        //@ts-ignore
+        add()
+    }
+}
 
-// export default connect(mapStateToProps, mapDispatchToProps())(StreamSpace);
+export default connect(mapStateToProps, mapDispatchToProps())(StreamSpace);
 
-export default StreamSpace;
+// export default StreamSpace;
