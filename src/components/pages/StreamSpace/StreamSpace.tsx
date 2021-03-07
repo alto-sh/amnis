@@ -121,18 +121,11 @@ class StreamSpace extends React.Component<Props, State> {
             let tempStreamData:Array<any> = [];
             let currentStreamData:Array<any> = this.state.streamData;
             let localList = local.split(",");
-            // currentStreamData.map((stream) => {
-                // console.log(`found ${stream.id}`, "all");
-            localList.map((id) => {
-                // console.log("removing: ", `${id}(${stream.stream})`);
-                tempStreamData = (
-                    currentStreamData.filter(s => s.id !== id));
-            });
-                // if (local.includes(stream.id)) { // stream.id === local
-                // }
-            // })
-            console.log(localList);
-            console.log("BEFORE",currentStreamData,"AFTER",tempStreamData);
+
+            tempStreamData = currentStreamData.filter(s => localList.indexOf(s.id) === -1);
+
+            // console.log("LOCAL LIST", localList);
+            // console.log("BEFORE",currentStreamData,"AFTER",tempStreamData);
             this.setState({
                 streamData: tempStreamData
             });

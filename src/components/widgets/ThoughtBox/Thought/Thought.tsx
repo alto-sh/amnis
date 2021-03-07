@@ -52,22 +52,7 @@ export default class Thought extends React.Component<Props, State> {
                         <Row>
                             <Col xs={10}>
                                 <h6>{this.props.date ? this.props.date : (new Date()).toDateString()}
-                                <span className={cx( Styles.thoughtTrash, theme)}
-                                    onClick={() => {
-                                        // console.log(this.props.id)
-                                        let local = localStorage.getItem("DELETE_streamData");
-                                        if (local) {
-                                            const ID = this.props.id;
-                                            let localList = local.split(",").filter(id => id !== ID);
-                                            localStorage.setItem("DELETE_streamData", [...localList,ID].toString());
-                                        } else {
-                                            localStorage.setItem("DELETE_streamData", this.props.id);
-                                        }
 
-                                        // remove from dom
-                                        this.myRef.current.remove();
-                                    }}
-                                ><i className="fas fa-trash"></i></span>
                                 </h6>
                                 <p className={cx( Styles.thoughtBody )}>
                                     {this.props.msg ? (
@@ -79,6 +64,24 @@ export default class Thought extends React.Component<Props, State> {
                             </Col>
                             <Col>
                                 <div style={{ display:"inline", float:"right", marginTop:"auto", marginBottom:"auto"}} className={ cx( Styles.optionsButton )}>
+                                    
+                                    <span className={cx( Styles.thoughtTrash, theme)}
+                                        onClick={() => {
+                                            // console.log(this.props.id)
+                                            let local = localStorage.getItem("DELETE_streamData");
+                                            if (local) {
+                                                const ID = this.props.id;
+                                                let localList = local.split(",").filter(id => id !== ID);
+                                                localStorage.setItem("DELETE_streamData", [...localList,ID].toString());
+                                            } else {
+                                                localStorage.setItem("DELETE_streamData", this.props.id);
+                                            }
+
+                                            // remove from dom
+                                            this.myRef.current.remove();
+                                        }}
+                                    ><i className="fas fa-trash"></i></span>
+                                    
                                     <Dropdown drop={"left"}>
                                         <Dropdown.Toggle variant="dark" id="dropdown-basic">
                                             <AlignJustify/>
