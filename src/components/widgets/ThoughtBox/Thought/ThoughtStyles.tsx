@@ -6,6 +6,7 @@ const Styles = {
         padding: 40px;
         transition: .25s;
         font-family: Poppins, sans-serif;
+        margin: 10px;
         
         & h6 {
             margin-bottom: 20px;
@@ -28,6 +29,12 @@ const Styles = {
         font-size: 14pt;
     `,
     thoughtsContainer: css`
+    `,
+    grabbingCursor: css`
+        cursor:grabbing;
+    `,
+    grabCursor: css`
+        cursor:grab;
     `
 }
 

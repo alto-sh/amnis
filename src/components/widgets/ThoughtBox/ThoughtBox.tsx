@@ -16,6 +16,9 @@ export default class ThoughtBox extends React.Component<Props, State> {
         return (
             <div className={cx( Styles.thoughtBox, theme )}>
                 <Thought dark={this.props.dark}/>
+                <Thought dark={this.props.dark}/>
+                <Thought dark={this.props.dark}/>
+                <Thought dark={this.props.dark}/>
             </div>
         )
     }
