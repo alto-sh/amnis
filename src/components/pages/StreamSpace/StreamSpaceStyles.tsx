@@ -67,8 +67,9 @@ const ThoughtStyles = {
     `,
     inputContainer: css`
         input, button {
+            color: whitesmoke;
             border: none;
-            background:rgba(255, 255, 255, 0.2);
+            background:rgba(255, 255, 255, 0.1);
             padding:1rem;
         }
         button {
@@ -134,6 +135,65 @@ const ThoughtStyles = {
             // date
             color: rgba(255, 255, 255, 0.6);
         }
+    `,
+    thoughtBody: css`
+    color: #666;
+    font-size: 14pt;
+    `,
+    thoughtStyles: css`
+    border-radius: 1rem;
+    padding: 40px;
+    transition: .25s;
+    font-family: Poppins, sans-serif;
+    
+    & h6 {
+        margin-bottom: 20px;
+    }
+
+    &:hover {
+        transform: scale(1.04);
+    }
+`,
+    thoughtModalContainer: css`
+
+    `,
+    thoughtModal: css`
+        width: 100vw;
+        height: 100%;
+        background: rgba(0,0,0,0.5);
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        transform: translate(-50%,-50%);
+        top: 50%;
+        left: 50%;
+        z-index: 1;
+
+        div {
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            transform: translate(-50%,-50%);
+            top: 50%;
+            left: 50%;
+            background: rgba(0,0,0,0.7);
+            border-radius:10px;
+            padding: 1.5rem;
+        }
+
+        div h1 {
+            color: white;
+        }
+
+    `,
+    streamSpaceContainer: css`
+        /* overflow-y: auto; */
+    
+    `,
+    inputContainerThoughts: css`
+        display: flex;
+        justify-content:center;
+        margin-top: 1rem;
     `
 }
 

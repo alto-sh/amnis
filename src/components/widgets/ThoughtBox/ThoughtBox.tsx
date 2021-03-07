@@ -5,17 +5,46 @@ import Styles from "./ThoughtBoxStyles";
 import Thought from "./Thought/Thought";
 
 type Props = {
-    dark?: boolean
+    dark?: boolean,
+    stateData?: any,
+    currentStream?: any
 };
 type State = {};
 
 export default class ThoughtBox extends React.Component<Props, State> {
 
+    constructor(props: Props) {
+        super(props);
+
+        // this.state = {
+        //     stateData: []
+        // }
+    }
+
     render() {
+        console.log(this.props.stateData);
         const theme = (this.props.dark ? Styles.thoughtBoxDark : Styles.thoughtBoxLight);
         return (
             <div className={cx( Styles.thoughtBox, theme )}>
-                <Thought dark={this.props.dark}/>
+                {this.props.stateData ? (
+                    <>
+                    {
+                        this.props.stateData.map((stream:any) => {
+                            console.log("STREAM MAP", stream);
+                            if (stream.stream === this.props.currentStream) {
+                                return <Thought dark={this.props.dark} date={stream.date} msg={stream.msg} key={stream.stream + Math.random().toString()} />
+                            }
+                        })
+                    }
+                    </>
+                ) : (
+                    <>
+                        <Thought dark={this.props.dark}/>
+                        <Thought dark={this.props.dark}/>
+                        <Thought dark={this.props.dark}/>
+                        <Thought dark={this.props.dark}/>
+                    </>
+                ) }
             </div>
         )
     }
