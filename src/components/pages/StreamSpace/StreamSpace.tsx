@@ -231,9 +231,6 @@ class StreamSpace extends React.Component<Props, State> {
                     </Col>
                     <Modal />
                     <Col sm={9}>
-                        <ThoughtBox dark={this.state.dark}/>
-                        <br/>
-                        <NewNote dark={this.state.dark}/>
                         <ThoughtBox stateData={
                         this.state.streamData
                         // [

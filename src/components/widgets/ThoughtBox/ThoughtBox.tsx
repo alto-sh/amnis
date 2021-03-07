@@ -36,11 +36,11 @@ export default class ThoughtBox extends React.Component<Props, State> {
             )
         }
 
-        console.log("STATEDATA: ",this.props.stateData, "LENGTH: ", this.props.stateData.length);
+        // console.log("STATEDATA: ",this.props.stateData, "LENGTH: ", this.props.stateData.length);
         const theme = (this.props.dark ? Styles.thoughtBoxDark : Styles.thoughtBoxLight);
         return (
             <div className={`${cx( Styles.thoughtBox, theme )} tBox`} id={"tBox"}>
-                {this.props.currentStream.length > 0
+                {this.props.currentStream
                 ? (
                     <>
                     {/* document.getElementsByClassName("tBox").length > 0 */}
