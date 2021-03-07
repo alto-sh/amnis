@@ -38,7 +38,7 @@ export default class ThoughtBox extends React.Component<Props, State> {
         console.log("STATEDATA: ",this.props.stateData, "LENGTH: ", this.props.stateData.length);
         const theme = (this.props.dark ? Styles.thoughtBoxDark : Styles.thoughtBoxLight);
         return (
-            <div className={`${cx( Styles.thoughtBox, theme )} tBox`}>
+            <div className={`${cx( Styles.thoughtBox, theme )} tBox`} id={"tBox"}>
                 {this.props.currentStream.length > 0
                 ? (
                     <>
@@ -47,7 +47,7 @@ export default class ThoughtBox extends React.Component<Props, State> {
                         this.props.stateData.map((stream:any) => {
                             console.log("STREAM MAP", stream);
                             if (stream.stream === this.props.currentStream) {
-                                return <Thought dark={this.props.dark} date={stream.date} msg={stream.msg} key={stream.stream + Math.random().toString()} streamList={this.props.streamList} setCurrentStream={this.props.setCurrentStream}/>
+                                return <Thought dark={this.props.dark} date={stream.date} msg={stream.msg} id={stream.id} key={stream.stream + Math.random().toString()} streamList={this.props.streamList} setCurrentStream={this.props.setCurrentStream}/>
                             }
                         })
                     ) : (

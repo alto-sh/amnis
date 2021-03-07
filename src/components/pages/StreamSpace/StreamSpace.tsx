@@ -26,7 +26,8 @@ type State = {
     streams: any,
     modalRes: String,
     currentStream: any,
-    streamData: Array<any>
+    streamData: Array<any>,
+    currentID: string
 };
 
 //export default 
@@ -40,7 +41,8 @@ class StreamSpace extends React.Component<Props, State> {
             streams: [],
             modalRes: "placeholder",
             currentStream: "",
-            streamData: []
+            streamData: [],
+            currentID: ""
         }
 
         //@ts-expect-error
@@ -89,15 +91,52 @@ class StreamSpace extends React.Component<Props, State> {
         this.setState({ currentStream: stream })
     }
 
+    // updateCurrentID() {
+    //     this.setState({
+    //         currentID: Math.random().toString()
+    //     })
+    // }
+
     updateStreamData(msg:string) {
         if (msg.length > 0) {
+
+            let newID = Math.random().toString()
+            this.setState({currentID: newID})
+
             this.setState({ streamData: [...this.state.streamData, 
                 {
                     stream: this.state.currentStream,
                     date: new Date().toLocaleDateString(), 
-                    msg: msg
-                }] })
+                    msg: msg,
+                    id: newID
+                }] 
+            })
         }
+    }
+
+    updateLocalStreamData() {
+        let local = localStorage.getItem("DELETE_streamData");
+        if (local) {
+            let tempStreamData:Array<any> = [];
+            let currentStreamData:Array<any> = this.state.streamData;
+            let localList = local.split(",");
+            // currentStreamData.map((stream) => {
+                // console.log(`found ${stream.id}`, "all");
+            localList.map((id) => {
+                // console.log("removing: ", `${id}(${stream.stream})`);
+                tempStreamData = (
+                    currentStreamData.filter(s => s.id !== id));
+            });
+                // if (local.includes(stream.id)) { // stream.id === local
+                // }
+            // })
+            console.log(localList);
+            console.log("BEFORE",currentStreamData,"AFTER",tempStreamData);
+            this.setState({
+                streamData: tempStreamData
+            });
+        }
+        localStorage.removeItem("DELETE_streamData");
     }
 
     render() {
@@ -111,6 +150,8 @@ class StreamSpace extends React.Component<Props, State> {
             //     <p className={cx( Styles.thoughtBody )}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vulputate faucibus nisi in convallis. Aliquam fringilla nibh lacinia, molestie purus vel, lacinia sapien. Praesent sodales iaculis metus quis faucibus.</p>
             // </div>
         }
+
+        this.updateLocalStreamData();
 
         // @ts-ignore
         // const streams = useSelector(state => state.streamsReducer);
@@ -191,11 +232,13 @@ class StreamSpace extends React.Component<Props, State> {
                         //         stream: "name",
                         //         date: new Date().toLocaleDateString(),
                         //         msg: "hello!"
+                        //         id: "124"
                         //     },
                         //     {
                         //         stream: "name2",
                         //         date: new Date().toLocaleDateString(),
-                        //         msg: "hello!222"
+                        //         msg: "hello!222",
+                        //         id: "123"
                         //     }
                         // ]
                         } currentStream={this.state.currentStream} dark={this.state.dark} streamList={this.state.streams} setCurrentStream={this.setCurrentStream}/>
@@ -206,6 +249,7 @@ class StreamSpace extends React.Component<Props, State> {
                                         <button onClick={() => {
                                             if (this.state.currentStream.length > 0) {
                                                 let msgDOM:any = document.getElementById("chatInputThought");
+                                                // this.updateCurrentID();
                                                 this.updateStreamData(msgDOM.value);
                                                 msgDOM.value = "";
                                             } else {
