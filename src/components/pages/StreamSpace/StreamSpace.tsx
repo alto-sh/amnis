@@ -25,7 +25,7 @@ type State = {
     // streams: Array<any>
     streams: any,
     modalRes: String,
-    currentStream: String
+    currentStream: any
 };
 
 //export default 
@@ -166,7 +166,18 @@ class StreamSpace extends React.Component<Props, State> {
                     </Col>
                     <Modal />
                     <Col sm={9}>
-                        <ThoughtBox dark={this.state.dark}/>
+                        <ThoughtBox stateData={[
+                        {
+                            stream: "name",
+                            date: new Date().toLocaleDateString(),
+                            msg: "hello!"
+                        },
+                        {
+                            stream: "name2",
+                            date: new Date().toLocaleDateString(),
+                            msg: "hello!222"
+                        }
+                        ]} currentStream={this.state.currentStream} dark={this.state.dark}/>
                     </Col>
                 </Row>
             </Template>
