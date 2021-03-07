@@ -113,6 +113,31 @@ class StreamSpace extends React.Component<Props, State> {
         }
     }
 
+    updateLocalStreamData() {
+        let local = localStorage.getItem("DELETE_streamData");
+        if (local) {
+            let tempStreamData:Array<any> = [];
+            let currentStreamData:Array<any> = this.state.streamData;
+            let localList = local.split(",");
+            // currentStreamData.map((stream) => {
+                // console.log(`found ${stream.id}`, "all");
+            localList.map((id) => {
+                // console.log("removing: ", `${id}(${stream.stream})`);
+                tempStreamData = (
+                    currentStreamData.filter(s => s.id !== id));
+            });
+                // if (local.includes(stream.id)) { // stream.id === local
+                // }
+            // })
+            console.log(localList);
+            console.log("BEFORE",currentStreamData,"AFTER",tempStreamData);
+            this.setState({
+                streamData: tempStreamData
+            });
+        }
+        localStorage.removeItem("DELETE_streamData");
+    }
+
     render() {
 
         const addStream = () => {
@@ -124,6 +149,8 @@ class StreamSpace extends React.Component<Props, State> {
             //     <p className={cx( Styles.thoughtBody )}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vulputate faucibus nisi in convallis. Aliquam fringilla nibh lacinia, molestie purus vel, lacinia sapien. Praesent sodales iaculis metus quis faucibus.</p>
             // </div>
         }
+
+        this.updateLocalStreamData();
 
         // @ts-ignore
         // const streams = useSelector(state => state.streamsReducer);
@@ -204,11 +231,13 @@ class StreamSpace extends React.Component<Props, State> {
                         //         stream: "name",
                         //         date: new Date().toLocaleDateString(),
                         //         msg: "hello!"
+                        //         id: "124"
                         //     },
                         //     {
                         //         stream: "name2",
                         //         date: new Date().toLocaleDateString(),
-                        //         msg: "hello!222"
+                        //         msg: "hello!222",
+                        //         id: "123"
                         //     }
                         // ]
                         } currentStream={this.state.currentStream} dark={this.state.dark}/>
