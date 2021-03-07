@@ -31,7 +31,7 @@ export default class StreamSpace extends React.Component<Props, State> {
         this.state = {
             dark: true,
             streams: [],
-            modalRes: ""
+            modalRes: "placeholder"
         }
 
         //@ts-expect-error
@@ -113,33 +113,35 @@ export default class StreamSpace extends React.Component<Props, State> {
             <Template dark={this.state.dark} toggleDarkMode={this.toggleDarkMode}>              
                 <Row>
                     <Col sm={3}>
-                        {/* Log Out Button */}
-                        <div className={cx( Styles.logoutButton )} onClick={() => { netlifyIdentity.logout(); }}>
-                            Log Out
-                        </div>
-                        {/* Map Stream Tabs Here */}
-                        {this.state.streams.map((stream:any) => {
-                            return (
-                                <div 
-                                key={stream + Math.random().toString()}
-                                style={{background: 'rgba(255, 255, 255, 0.1)'}}
-                                className={cx( StreamTabStyles.tabStyles/*, theme*/ )}
-                                onClick={() => {
-                                    console.log(stream);
-                                }}
-                                >
-                                {stream}
-                                </div>
-                            )
-                        })}
-                        <StreamTab dark={this.state.dark}/>
-                        {/* New Stream Button */}
-                        <div onClick={() => {
-                            // this.addToStreams("tests")
-                            this.updateModal("")
-                            addStream()
-                        }} className={cx( Styles.newStreamButton )}>
-                            🖊&nbsp;&nbsp;New Stream
+                        <div className={Styles.streamSpaceContainer}>
+                            {/* Log Out Button */}
+                            <div className={cx( Styles.logoutButton )} onClick={() => { netlifyIdentity.logout(); }}>
+                                Log Out
+                            </div>
+                            {/* Map Stream Tabs Here */}
+                            {this.state.streams.map((stream:any) => {
+                                return (
+                                    <div 
+                                    key={stream + Math.random().toString()}
+                                    style={{background: 'rgba(255, 255, 255, 0.1)'}}
+                                    className={cx( StreamTabStyles.tabStyles/*, theme*/ )}
+                                    onClick={() => {
+                                        console.log(stream);
+                                    }}
+                                    >
+                                    {stream}
+                                    </div>
+                                )
+                            })}
+                            <StreamTab dark={this.state.dark}/>
+                            {/* New Stream Button */}
+                            <div onClick={() => {
+                                // this.addToStreams("tests")
+                                this.updateModal("")
+                                addStream()
+                            }} className={cx( Styles.newStreamButton )}>
+                                🖊&nbsp;&nbsp;New Stream
+                            </div>
                         </div>
                     </Col>
                     <Modal />

@@ -185,6 +185,10 @@ const ThoughtStyles = {
             color: white;
         }
 
+    `,
+    streamSpaceContainer: css`
+        /* overflow-y: auto; */
+    
     `
 }
 
