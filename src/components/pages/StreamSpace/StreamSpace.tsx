@@ -15,15 +15,21 @@ import StreamTabStyles from "../../widgets/StreamTab/StreamTabStyles";
 import netlifyIdentity from "netlify-identity-widget";
 import { faBlackberry } from "@fortawesome/free-brands-svg-icons";
 
+// import {useSelector, useDispatch} from "react-redux";
+// import {connect} from "react-redux";
+// import { add } from "../../../actions/index";
+
 type Props = {};
 type State = {
     dark: boolean,
     // streams: Array<any>
     streams: any,
-    modalRes: String
+    modalRes: String,
+    currentStream: String
 };
 
-export default class StreamSpace extends React.Component<Props, State> {
+//export default 
+class StreamSpace extends React.Component<Props, State> {
 
     constructor(props: Props) {
         super(props);
@@ -31,7 +37,8 @@ export default class StreamSpace extends React.Component<Props, State> {
         this.state = {
             dark: true,
             streams: [],
-            modalRes: "placeholder"
+            modalRes: "placeholder",
+            currentStream: ""
         }
 
         //@ts-expect-error
@@ -42,6 +49,7 @@ export default class StreamSpace extends React.Component<Props, State> {
         this.toggleDarkMode = this.toggleDarkMode.bind(this);
 
         this.initializeAuth();
+
     }
 
     initializeAuth() {
@@ -74,6 +82,10 @@ export default class StreamSpace extends React.Component<Props, State> {
         this.addToStreams(res)
     }
 
+    setCurrentStream(stream:string) {
+        this.setState({ currentStream: stream })
+    }
+
     render() {
 
         const addStream = () => {
@@ -85,6 +97,14 @@ export default class StreamSpace extends React.Component<Props, State> {
             //     <p className={cx( Styles.thoughtBody )}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vulputate faucibus nisi in convallis. Aliquam fringilla nibh lacinia, molestie purus vel, lacinia sapien. Praesent sodales iaculis metus quis faucibus.</p>
             // </div>
         }
+
+        // @ts-ignore
+        // const streams = useSelector(state => state.streamsReducer);
+        // console.log("streams", streams);
+        // this.props.add("test");
+        //@ts-ignore
+        // console.log(this.props.streamData);
+        console.log(this.props);
 
         const Modal = () => {
             if (this.state.modalRes.length <= 0) {
@@ -126,7 +146,7 @@ export default class StreamSpace extends React.Component<Props, State> {
                                     style={{background: 'rgba(255, 255, 255, 0.1)'}}
                                     className={cx( StreamTabStyles.tabStyles/*, theme*/ )}
                                     onClick={() => {
-                                        console.log(stream);
+                                        this.setCurrentStream(stream)
                                     }}
                                     >
                                     {stream}
@@ -153,3 +173,20 @@ export default class StreamSpace extends React.Component<Props, State> {
         );
     }
 }
+
+//@ts-ignore
+// const mapStateToProps = (state) => {
+//     return {
+//         streamsData: state.streamsReducer
+//     }
+// }
+
+// const mapDispatchToProps = () => {
+//     return {
+//         add
+//     }
+// }
+
+// export default connect(mapStateToProps, mapDispatchToProps())(StreamSpace);
+
+export default StreamSpace;
