@@ -25,7 +25,8 @@ type State = {
     // streams: Array<any>
     streams: any,
     modalRes: String,
-    currentStream: any
+    currentStream: any,
+    streamData: Array<any>
 };
 
 //export default 
@@ -38,7 +39,8 @@ class StreamSpace extends React.Component<Props, State> {
             dark: true,
             streams: [],
             modalRes: "placeholder",
-            currentStream: ""
+            currentStream: "",
+            streamData: []
         }
 
         //@ts-expect-error
@@ -86,6 +88,17 @@ class StreamSpace extends React.Component<Props, State> {
         this.setState({ currentStream: stream })
     }
 
+    updateStreamData(msg:string) {
+        if (msg.length > 0) {
+            this.setState({ streamData: [...this.state.streamData, 
+                {
+                    stream: this.state.currentStream,
+                    date: new Date().toLocaleDateString(), 
+                    msg: msg
+                }] })
+        }
+    }
+
     render() {
 
         const addStream = () => {
@@ -104,7 +117,7 @@ class StreamSpace extends React.Component<Props, State> {
         // this.props.add("test");
         //@ts-ignore
         // console.log(this.props.streamData);
-        console.log("PROPS", this.props.streamsData);
+        console.log("PROPS", this.state.streamData, "currentStream", this.state.currentStream);
 
         const Modal = () => {
             if (this.state.modalRes.length <= 0) {
@@ -143,7 +156,11 @@ class StreamSpace extends React.Component<Props, State> {
                                 return (
                                     <div 
                                     key={stream + Math.random().toString()}
-                                    style={{background: 'rgba(255, 255, 255, 0.1)'}}
+                                    style={
+                                        stream === this.state.currentStream ? 
+                                        ({background: 'rgba(255, 255, 255, 0.2)'}) 
+                                        :
+                                        ({background: 'rgba(255, 255, 255, 0.1)'})}
                                     className={cx( StreamTabStyles.tabStyles/*, theme*/ )}
                                     onClick={() => {
                                         this.setCurrentStream(stream)
@@ -153,7 +170,7 @@ class StreamSpace extends React.Component<Props, State> {
                                     </div>
                                 )
                             })}
-                            <StreamTab dark={this.state.dark}/>
+                            {/* <StreamTab dark={this.state.dark}/> */}
                             {/* New Stream Button */}
                             <div onClick={() => {
                                 // this.addToStreams("tests")
@@ -166,18 +183,38 @@ class StreamSpace extends React.Component<Props, State> {
                     </Col>
                     <Modal />
                     <Col sm={9}>
-                        <ThoughtBox stateData={[
-                        {
-                            stream: "name",
-                            date: new Date().toLocaleDateString(),
-                            msg: "hello!"
-                        },
-                        {
-                            stream: "name2",
-                            date: new Date().toLocaleDateString(),
-                            msg: "hello!222"
-                        }
-                        ]} currentStream={this.state.currentStream} dark={this.state.dark}/>
+                        <ThoughtBox stateData={
+                        this.state.streamData
+                        // [
+                        //     {
+                        //         stream: "name",
+                        //         date: new Date().toLocaleDateString(),
+                        //         msg: "hello!"
+                        //     },
+                        //     {
+                        //         stream: "name2",
+                        //         date: new Date().toLocaleDateString(),
+                        //         msg: "hello!222"
+                        //     }
+                        // ]
+                        } currentStream={this.state.currentStream} dark={this.state.dark}/>
+                                            <div className={Styles.thoughtModalContainer}>
+                                <div className={Styles.inputContainerThoughts}>
+                                    <span className={ThoughtStyles.inputContainer}>
+                                        <input id="chatInputThought" type="text" placeholder="Write your thought here..." required/>
+                                        <button onClick={() => {
+                                            if (this.state.currentStream.length > 0) {
+                                                let msgDOM:any = document.getElementById("chatInputThought");
+                                                this.updateStreamData(msgDOM.value);
+                                                msgDOM.value = "";
+                                            } else {
+                                                // console.log(this.state.currentStream, this.state.currentStream.length)
+                                                alert("Pick a stream first!")
+                                            }
+                                        }}>Send</button>
+                                    </span>
+                                </div>
+                            </div>
                     </Col>
                 </Row>
             </Template>

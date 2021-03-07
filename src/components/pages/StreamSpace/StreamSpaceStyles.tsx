@@ -189,6 +189,11 @@ const ThoughtStyles = {
     streamSpaceContainer: css`
         /* overflow-y: auto; */
     
+    `,
+    inputContainerThoughts: css`
+        display: flex;
+        justify-content:center;
+        margin-top: 1rem;
     `
 }
 

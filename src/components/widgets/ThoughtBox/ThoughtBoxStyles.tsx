@@ -4,7 +4,7 @@ const Styles = {
     thoughtBox: css`
         border-radius: .7rem;
         padding: 20px;
-        height: 80vh;
+        height: 72vh;
         overflow-x: hidden;
 
         ::-webkit-scrollbar {
