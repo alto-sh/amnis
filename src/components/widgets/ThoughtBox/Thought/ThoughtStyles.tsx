@@ -26,6 +26,8 @@ const Styles = {
     thoughtBody: css`
         color: #666;
         font-size: 14pt;
+    `,
+    thoughtsContainer: css`
     `
 }
 

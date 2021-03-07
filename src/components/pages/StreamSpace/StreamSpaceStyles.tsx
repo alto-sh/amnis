@@ -134,7 +134,25 @@ const ThoughtStyles = {
             // date
             color: rgba(255, 255, 255, 0.6);
         }
-    `
+    `,
+    thoughtBody: css`
+    color: #666;
+    font-size: 14pt;
+    `,
+    thoughtStyles: css`
+    border-radius: 1rem;
+    padding: 40px;
+    transition: .25s;
+    font-family: Poppins, sans-serif;
+    
+    & h6 {
+        margin-bottom: 20px;
+    }
+
+    &:hover {
+        transform: scale(1.04);
+    }
+`,
 }
 
 export default ThoughtStyles;
