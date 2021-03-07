@@ -27,7 +27,8 @@ type State = {
     streams: any,
     modalRes: String,
     currentStream: any,
-    streamData: Array<any>
+    streamData: Array<any>,
+    currentID: string
 };
 
 //export default 
@@ -41,7 +42,8 @@ class StreamSpace extends React.Component<Props, State> {
             streams: [],
             modalRes: "placeholder",
             currentStream: "",
-            streamData: []
+            streamData: [],
+            currentID: ""
         }
 
         //@ts-expect-error
@@ -50,6 +52,8 @@ class StreamSpace extends React.Component<Props, State> {
 
         // Method Bindings
         this.toggleDarkMode = this.toggleDarkMode.bind(this);
+        this.setCurrentStream = this.setCurrentStream.bind(this);
+        this.updateThoughtLocation = this.updateThoughtLocation.bind(this);
 
         this.initializeAuth();
 
@@ -89,14 +93,55 @@ class StreamSpace extends React.Component<Props, State> {
         this.setState({ currentStream: stream })
     }
 
+    // updateCurrentID() {
+    //     this.setState({
+    //         currentID: Math.random().toString()
+    //     })
+    // }
+
     updateStreamData(msg:string) {
         if (msg.length > 0) {
+
+            let newID = Math.random().toString()
+            this.setState({currentID: newID})
+
             this.setState({ streamData: [...this.state.streamData, 
                 {
                     stream: this.state.currentStream,
                     date: new Date().toLocaleDateString(), 
-                    msg: msg
-                }] })
+                    msg: msg,
+                    id: newID
+                }] 
+            })
+        }
+    }
+
+    updateLocalStreamData() {
+        let local = localStorage.getItem("DELETE_streamData");
+        if (local) {
+            let tempStreamData:Array<any> = [];
+            let currentStreamData:Array<any> = this.state.streamData;
+            let localList = local.split(",");
+
+            tempStreamData = currentStreamData.filter(s => localList.indexOf(s.id) === -1);
+
+            // console.log("LOCAL LIST", localList);
+            // console.log("BEFORE",currentStreamData,"AFTER",tempStreamData);
+            this.setState({
+                streamData: tempStreamData
+            });
+        }
+        localStorage.removeItem("DELETE_streamData");
+    }
+
+    updateThoughtLocation(id:string, targetStream:string) {
+        var tempStreamData = this.state.streamData
+        for (var i in this.state.streamData) {
+            if (this.state.streamData[i].id == id) {
+                tempStreamData[i].stream = targetStream;
+                this.setState({streamData : tempStreamData})
+                break;
+            }
         }
     }
 
@@ -111,6 +156,8 @@ class StreamSpace extends React.Component<Props, State> {
             //     <p className={cx( Styles.thoughtBody )}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vulputate faucibus nisi in convallis. Aliquam fringilla nibh lacinia, molestie purus vel, lacinia sapien. Praesent sodales iaculis metus quis faucibus.</p>
             // </div>
         }
+
+        this.updateLocalStreamData();
 
         // @ts-ignore
         // const streams = useSelector(state => state.streamsReducer);
@@ -128,7 +175,7 @@ class StreamSpace extends React.Component<Props, State> {
                             <div>
                                 <h1>Create Stream</h1>
                                 <span className={ThoughtStyles.inputContainer}>
-                                    <input id="chatInput" type="text" placeholder="Write your thought here..." required/>
+                                    <input id="chatInput" type="text" placeholder="Name your new stream..." required/>
                                     <button onClick={() => {
                                         let msgDOM:any = document.getElementById("chatInput");
                                         this.updateModal(msgDOM.value)
@@ -194,21 +241,24 @@ class StreamSpace extends React.Component<Props, State> {
                         //         stream: "name",
                         //         date: new Date().toLocaleDateString(),
                         //         msg: "hello!"
+                        //         id: "124"
                         //     },
                         //     {
                         //         stream: "name2",
                         //         date: new Date().toLocaleDateString(),
-                        //         msg: "hello!222"
+                        //         msg: "hello!222",
+                        //         id: "123"
                         //     }
                         // ]
-                        } currentStream={this.state.currentStream} dark={this.state.dark}/>
+                        } currentStream={this.state.currentStream} dark={this.state.dark} streamList={this.state.streams} setCurrentStream={this.setCurrentStream} updateThoughtLocation={this.updateThoughtLocation}/>
                             <div className={Styles.thoughtModalContainer}>
                                 <div className={Styles.inputContainerThoughts}>
                                     <span className={ThoughtStyles.inputContainer}>
-                                        <input id="chatInputThought" type="text" placeholder="Write your thought here..." required/>
+                                        <input id="chatInputThought" type="text" style={ (this.state.dark ? {color:"whitesmoke"} : {color:"black"})} placeholder="Write your thought here..." required/>
                                         <button onClick={() => {
                                             if (this.state.currentStream.length > 0) {
                                                 let msgDOM:any = document.getElementById("chatInputThought");
+                                                // this.updateCurrentID();
                                                 this.updateStreamData(msgDOM.value);
                                                 msgDOM.value = "";
                                             } else {
