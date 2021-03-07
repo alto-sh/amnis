@@ -7,7 +7,10 @@ import Thought from "./Thought/Thought";
 type Props = {
     dark?: boolean,
     stateData?: any,
-    currentStream?: any
+    currentStream?: any,
+    grabbingStatus: boolean,
+    updateGrabbingStatus: Function,
+    dropToStreamHoveredOver: Function
 };
 type State = {};
 
@@ -32,7 +35,7 @@ export default class ThoughtBox extends React.Component<Props, State> {
                         this.props.stateData.map((stream:any) => {
                             console.log("STREAM MAP", stream);
                             if (stream.stream === this.props.currentStream) {
-                                return <Thought dark={this.props.dark} date={stream.date} msg={stream.msg} key={stream.stream + Math.random().toString()} />
+                                return <Thought dark={this.props.dark} date={stream.date} msg={stream.msg} key={stream.stream + Math.random().toString()} grabbingStatus={this.props.grabbingStatus} updateGrabbingStatus={this.props.updateGrabbingStatus} dropToStreamHoveredOver={this.props.dropToStreamHoveredOver}/>
                             }
                         })
                     }

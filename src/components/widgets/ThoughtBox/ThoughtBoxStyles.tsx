@@ -5,6 +5,7 @@ const Styles = {
         border-radius: .7rem;
         padding: 20px;
         height: 72vh;
+        overflow-y: auto;
         overflow-x: hidden;
 
         ::-webkit-scrollbar {

@@ -9,31 +9,28 @@ type Props = {
     dark?: boolean,
     msg?: string,
     date?: string,
+    grabbingStatus?: boolean,
+    updateGrabbingStatus?: Function,
+    dropToStreamHoveredOver?: Function
 };
-type State = {
-    grabbingStatus: boolean
-};
+type State = {};
 
 export default class Thought extends React.Component<Props, State> {
 
     constructor(props: Props) {
         super(props);
-
-        this.state = {
-            grabbingStatus: false
-        }
     }
 
     render() {
         const theme = (this.props.dark ? Styles.thoughtDark : Styles.thoughtLight);
-        const grabCursor = (this.state.grabbingStatus ? Styles.grabbingCursor : Styles.grabCursor )
+        const grabCursor = (this.props.grabbingStatus ? Styles.grabbingCursor : Styles.grabCursor )
         return (
-            <div className={`${cx( Styles.thoughtsContainer, theme )} thoughtsContainer`}>
-                <Draggable
-                onStart={() => this.setState({ grabbingStatus: true })}
-                onStop={() => this.setState({ grabbingStatus: false })}
+            <Draggable
+                onStart={() => this.props.updateGrabbingStatus(true)}
+                onStop={() => this.props.updateGrabbingStatus(false)}
                 position={{x:0,y:0}}
-                >
+            >
+                <div className={`${cx( Styles.thoughtsContainer, theme )} thoughtsContainer`}>
                     <div className={cx( Styles.thoughtStyles, theme, grabCursor )}>
                         <h6>{this.props.date ? this.props.date : (new Date()).toDateString()}</h6>
                         <p className={cx( Styles.thoughtBody )}>
@@ -44,8 +41,8 @@ export default class Thought extends React.Component<Props, State> {
                             )}
                         </p>
                     </div>
-                </Draggable>
-            </div>
+                </div>
+            </Draggable>
         )
     }
 }

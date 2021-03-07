@@ -7,6 +7,9 @@ const Styles = {
         font-family: Poppins, sans-serif;
         transition: all .25s;
         margin-bottom: 10px;
+        width: 100%;
+        border: none;
+        text-align: left;
 
         &:hover {
             cursor: pointer;

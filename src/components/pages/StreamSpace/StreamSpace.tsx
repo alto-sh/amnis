@@ -26,7 +26,9 @@ type State = {
     streams: any,
     modalRes: String,
     currentStream: any,
-    streamData: Array<any>
+    streamData: Array<any>,
+    currentStreamHoveredOver: any,
+    grabbingStatus: boolean
 };
 
 //export default 
@@ -40,7 +42,9 @@ class StreamSpace extends React.Component<Props, State> {
             streams: [],
             modalRes: "placeholder",
             currentStream: "",
-            streamData: []
+            streamData: [],
+            currentStreamHoveredOver: "",
+            grabbingStatus: false
         }
 
         //@ts-expect-error
@@ -49,6 +53,8 @@ class StreamSpace extends React.Component<Props, State> {
 
         // Method Bindings
         this.toggleDarkMode = this.toggleDarkMode.bind(this);
+        this.updateGrabbingStatus = this.updateGrabbingStatus.bind(this);
+        this.dropToStreamHoveredOver = this.dropToStreamHoveredOver.bind(this);
 
         this.initializeAuth();
 
@@ -70,6 +76,11 @@ class StreamSpace extends React.Component<Props, State> {
 
     toggleDarkMode() {
         this.setState({ dark: !this.state.dark });
+    }
+
+    updateGrabbingStatus(grabbing:boolean) {
+        this.setState({ grabbingStatus: grabbing });
+        console.log("grabbing status:", grabbing)
     }
 
     addToStreams(Stream:string) {
@@ -96,6 +107,22 @@ class StreamSpace extends React.Component<Props, State> {
                     date: new Date().toLocaleDateString(), 
                     msg: msg
                 }] })
+        }
+    }
+
+    updateStreamHoveredOver(stream:any, hoverStatus: "enter" | "leave") {
+        if (hoverStatus === "enter") {
+            this.setState({currentStreamHoveredOver: stream})
+            console.log(this.state.currentStreamHoveredOver)
+        } else {
+            this.setState({currentStreamHoveredOver: ""})
+            console.log(this.state.currentStreamHoveredOver)
+        }
+    }
+
+    dropToStreamHoveredOver() {
+        if (this.state.grabbingStatus === true && this.state.currentStreamHoveredOver !== "") {
+            console.log("dropped into another stream!")
         }
     }
 
@@ -127,7 +154,7 @@ class StreamSpace extends React.Component<Props, State> {
                             <div>
                                 <h1>Create Stream</h1>
                                 <span className={ThoughtStyles.inputContainer}>
-                                    <input id="chatInput" type="text" placeholder="Write your thought here..." required/>
+                                    <input id="chatInput" type="text" placeholder="Name new thought stream..." required/>
                                     <button onClick={() => {
                                         let msgDOM:any = document.getElementById("chatInput");
                                         this.updateModal(msgDOM.value)
@@ -154,7 +181,7 @@ class StreamSpace extends React.Component<Props, State> {
                             {/* Map Stream Tabs Here */}
                             {this.state.streams.map((stream:any) => {
                                 return (
-                                    <div 
+                                    <Button 
                                     key={stream + Math.random().toString()}
                                     style={
                                         stream === this.state.currentStream ? 
@@ -165,9 +192,11 @@ class StreamSpace extends React.Component<Props, State> {
                                     onClick={() => {
                                         this.setCurrentStream(stream)
                                     }}
+                                    onMouseEnter={() => this.updateStreamHoveredOver(stream, "enter")}
+                                    onMouseLeave={() => this.updateStreamHoveredOver(stream, "leave")}
                                     >
                                     {stream}
-                                    </div>
+                                    </Button>
                                 )
                             })}
                             {/* <StreamTab dark={this.state.dark}/> */}
@@ -197,11 +226,11 @@ class StreamSpace extends React.Component<Props, State> {
                         //         msg: "hello!222"
                         //     }
                         // ]
-                        } currentStream={this.state.currentStream} dark={this.state.dark}/>
+                        } currentStream={this.state.currentStream} dark={this.state.dark} grabbingStatus={this.state.grabbingStatus} updateGrabbingStatus={this.updateGrabbingStatus} dropToStreamHoveredOver={this.dropToStreamHoveredOver}/>
                                             <div className={Styles.thoughtModalContainer}>
                                 <div className={Styles.inputContainerThoughts}>
                                     <span className={ThoughtStyles.inputContainer}>
-                                        <input id="chatInputThought" type="text" placeholder="Write your thought here..." required/>
+                                        <input id="chatInputThought" type="text" style={this.state.dark ? ({color:"whitesmoke"}) : ({color:"#000000"})} placeholder="Write your thought here..." required/>
                                         <button onClick={() => {
                                             if (this.state.currentStream.length > 0) {
                                                 let msgDOM:any = document.getElementById("chatInputThought");
