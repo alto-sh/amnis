@@ -25,7 +25,7 @@ export default class Template extends React.Component<Props, State> {
             <div>
                 <Particles options={particlesOption as ISourceOptions}/>
                 <div className={cx( Styles.template, theme )}>
-                    <h1 className={cx( Styles.pageHeader )} onClick={() => { this.props.toggleDarkMode(); }}>Amnis</h1>
+                    <h1 className={cx( Styles.pageHeader )} onClick={() => { this.props.toggleDarkMode(); }}>Amnis&nbsp;<img src="../../../../public/assets/img/svg/AmnisLogo.svg" height="50px"/></h1>
                     <Container className={cx( Styles.containerStyles)}>
                         {this.props.children}
                     </Container>
