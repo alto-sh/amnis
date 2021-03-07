@@ -198,7 +198,7 @@ class StreamSpace extends React.Component<Props, State> {
                         //     }
                         // ]
                         } currentStream={this.state.currentStream} dark={this.state.dark}/>
-                                            <div className={Styles.thoughtModalContainer}>
+                            <div className={Styles.thoughtModalContainer}>
                                 <div className={Styles.inputContainerThoughts}>
                                     <span className={ThoughtStyles.inputContainer}>
                                         <input id="chatInputThought" type="text" placeholder="Write your thought here..." required/>
