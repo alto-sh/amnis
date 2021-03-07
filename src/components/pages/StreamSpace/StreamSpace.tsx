@@ -13,12 +13,14 @@ import ThoughtBox from "../../widgets/ThoughtBox/ThoughtBox";
 import StreamTabStyles from "../../widgets/StreamTab/StreamTabStyles";
 
 import netlifyIdentity from "netlify-identity-widget";
+import { faBlackberry } from "@fortawesome/free-brands-svg-icons";
 
 type Props = {};
 type State = {
     dark: boolean,
     // streams: Array<any>
-    streams: any
+    streams: any,
+    modalRes: String
 };
 
 export default class StreamSpace extends React.Component<Props, State> {
@@ -28,7 +30,8 @@ export default class StreamSpace extends React.Component<Props, State> {
 
         this.state = {
             dark: true,
-            streams: []
+            streams: [],
+            modalRes: ""
         }
 
         //@ts-expect-error
@@ -59,9 +62,16 @@ export default class StreamSpace extends React.Component<Props, State> {
         this.setState({ dark: !this.state.dark });
     }
 
-    addToStreams() {
-        this.setState({ streams: [...this.state.streams,"test"] })
+    addToStreams(Stream:string) {
+        if (Stream.length > 0) {
+            this.setState({ streams: [...this.state.streams,Stream] })
+        }
         // this.setState({streams: [1,2]})
+    }
+
+    updateModal(res:string) {
+        this.setState({modalRes: res})
+        this.addToStreams(res)
     }
 
     render() {
@@ -76,6 +86,29 @@ export default class StreamSpace extends React.Component<Props, State> {
             // </div>
         }
 
+        const Modal = () => {
+            if (this.state.modalRes.length <= 0) {
+                return (
+                    <div className={Styles.thoughtModalContainer}>
+                        <div className={Styles.thoughtModal}>
+                            <div>
+                                <h1>Create Stream</h1>
+                                <span className={ThoughtStyles.inputContainer}>
+                                    <input id="chatInput" type="text" placeholder="Write your thought here..." required/>
+                                    <button onClick={() => {
+                                        let msgDOM:any = document.getElementById("chatInput");
+                                        this.updateModal(msgDOM.value)
+                                        msgDOM.value = "";
+                                    }}>Send</button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                )
+            }
+            return (<></>)
+        }
+
         return (
             <Template dark={this.state.dark} toggleDarkMode={this.toggleDarkMode}>              
                 <Row>
@@ -88,6 +121,7 @@ export default class StreamSpace extends React.Component<Props, State> {
                         {this.state.streams.map((stream:any) => {
                             return (
                                 <div 
+                                key={stream + Math.random().toString()}
                                 style={{background: 'rgba(255, 255, 255, 0.1)'}}
                                 className={cx( StreamTabStyles.tabStyles/*, theme*/ )}
                                 onClick={() => {
@@ -101,12 +135,14 @@ export default class StreamSpace extends React.Component<Props, State> {
                         <StreamTab dark={this.state.dark}/>
                         {/* New Stream Button */}
                         <div onClick={() => {
-                            this.addToStreams()
+                            // this.addToStreams("tests")
+                            this.updateModal("")
                             addStream()
                         }} className={cx( Styles.newStreamButton )}>
                             🖊&nbsp;&nbsp;New Stream
                         </div>
                     </Col>
+                    <Modal />
                     <Col sm={9}>
                         <ThoughtBox dark={this.state.dark}/>
                     </Col>
