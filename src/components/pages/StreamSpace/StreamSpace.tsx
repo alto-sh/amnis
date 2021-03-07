@@ -12,6 +12,7 @@ import StreamTab from "../../widgets/StreamTab/StreamTab";
 import ThoughtBox from "../../widgets/ThoughtBox/ThoughtBox";
 
 import netlifyIdentity from "netlify-identity-widget";
+import NewNote from "./NewNote/NewNote";
 
 type Props = {};
 type State = {
@@ -74,6 +75,8 @@ export default class StreamSpace extends React.Component<Props, State> {
                     </Col>
                     <Col sm={9}>
                         <ThoughtBox dark={this.state.dark}/>
+                        <br/>
+                        <NewNote dark={this.state.dark}/>
                     </Col>
                 </Row>
             </Template>
