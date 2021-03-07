@@ -16,7 +16,8 @@ type Props = {
     date?: string,
     streamList?: any,
     setCurrentStream?: Function,
-    id?: string
+    id?: string,
+    updateThoughtLocation?: Function
 };
 type State = {
     grabbingStatus: boolean
@@ -86,7 +87,7 @@ export default class Thought extends React.Component<Props, State> {
                                         <Dropdown.Menu>
                                             {this.props.streamList.map((stream:any) => {
                                                 return(
-                                                    <DropdownItem onClick={() => this.props.setCurrentStream(stream)}>{stream}</DropdownItem>
+                                                    <DropdownItem onClick={() => this.props.updateThoughtLocation(this.props.id, stream)}>{stream}</DropdownItem>
                                                 )
                                             })}
                                         </Dropdown.Menu>

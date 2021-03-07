@@ -52,6 +52,7 @@ class StreamSpace extends React.Component<Props, State> {
         // Method Bindings
         this.toggleDarkMode = this.toggleDarkMode.bind(this);
         this.setCurrentStream = this.setCurrentStream.bind(this);
+        this.updateThoughtLocation = this.updateThoughtLocation.bind(this);
 
         this.initializeAuth();
 
@@ -137,6 +138,17 @@ class StreamSpace extends React.Component<Props, State> {
             });
         }
         localStorage.removeItem("DELETE_streamData");
+    }
+
+    updateThoughtLocation(id:string, targetStream:string) {
+        var tempStreamData = this.state.streamData
+        for (var i in this.state.streamData) {
+            if (this.state.streamData[i].id == id) {
+                tempStreamData[i].stream = targetStream;
+                this.setState({streamData : tempStreamData})
+                break;
+            }
+        }
     }
 
     render() {
@@ -241,7 +253,7 @@ class StreamSpace extends React.Component<Props, State> {
                         //         id: "123"
                         //     }
                         // ]
-                        } currentStream={this.state.currentStream} dark={this.state.dark} streamList={this.state.streams} setCurrentStream={this.setCurrentStream}/>
+                        } currentStream={this.state.currentStream} dark={this.state.dark} streamList={this.state.streams} setCurrentStream={this.setCurrentStream} updateThoughtLocation={this.updateThoughtLocation}/>
                             <div className={Styles.thoughtModalContainer}>
                                 <div className={Styles.inputContainerThoughts}>
                                     <span className={ThoughtStyles.inputContainer}>
