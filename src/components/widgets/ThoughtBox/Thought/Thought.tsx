@@ -3,7 +3,7 @@ import React, { createRef } from "react";
 import { cx } from "emotion";
 import Styles from "./ThoughtStyles";
 
-import { DropdownButton, Dropdown, Row, Col } from "react-bootstrap";
+import { DropdownButton, Dropdown, Row, Col, Button } from "react-bootstrap";
 
 import Draggable from "react-draggable";
 import DropdownItem from "react-bootstrap/esm/DropdownItem";
@@ -65,7 +65,22 @@ export default class Thought extends React.Component<Props, State> {
                             <Col>
                                 <div style={{ display:"inline", float:"right", marginTop:"auto", marginBottom:"auto"}} className={ cx( Styles.optionsButton )}>
                                     
-                                    <span className={cx( Styles.thoughtTrash, theme)}
+                                    <Dropdown drop={"left"} style={{ width:"50px", marginBottom:"1rem" }}>
+                                        <Dropdown.Toggle variant="dark" id="dropdown-basic">
+                                            <AlignJustify/>
+                                        </Dropdown.Toggle>
+
+                                        <Dropdown.Menu>
+                                            {this.props.streamList.map((stream:any) => {
+                                                return(
+                                                    <DropdownItem onClick={() => this.props.updateThoughtLocation(this.props.id, stream)}>{stream}</DropdownItem>
+                                                )
+                                            })}
+                                        </Dropdown.Menu>
+                                    </Dropdown>
+
+                                    <Button variant="dark"
+                                        style={{ width:"50px" }}
                                         onClick={() => {
                                             // console.log(this.props.id)
                                             let local = localStorage.getItem("DELETE_streamData");
@@ -80,21 +95,9 @@ export default class Thought extends React.Component<Props, State> {
                                             // remove from dom
                                             this.myRef.current.remove();
                                         }}
-                                    ><i className="fas fa-trash"></i></span>
+                                    ><i className="fas fa-trash"></i>
+                                    </Button>
                                     
-                                    <Dropdown drop={"left"}>
-                                        <Dropdown.Toggle variant="dark" id="dropdown-basic">
-                                            <AlignJustify/>
-                                        </Dropdown.Toggle>
-
-                                        <Dropdown.Menu>
-                                            {this.props.streamList.map((stream:any) => {
-                                                return(
-                                                    <DropdownItem onClick={() => this.props.updateThoughtLocation(this.props.id, stream)}>{stream}</DropdownItem>
-                                                )
-                                            })}
-                                        </Dropdown.Menu>
-                                    </Dropdown>
                                 </div>
                             </Col>
                         </Row>
