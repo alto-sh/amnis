@@ -49,6 +49,7 @@ class StreamSpace extends React.Component<Props, State> {
 
         // Method Bindings
         this.toggleDarkMode = this.toggleDarkMode.bind(this);
+        this.setCurrentStream = this.setCurrentStream.bind(this);
 
         this.initializeAuth();
 
@@ -127,7 +128,7 @@ class StreamSpace extends React.Component<Props, State> {
                             <div>
                                 <h1>Create Stream</h1>
                                 <span className={ThoughtStyles.inputContainer}>
-                                    <input id="chatInput" type="text" placeholder="Write your thought here..." required/>
+                                    <input id="chatInput" type="text" placeholder="Name your new stream..." required/>
                                     <button onClick={() => {
                                         let msgDOM:any = document.getElementById("chatInput");
                                         this.updateModal(msgDOM.value)
@@ -197,11 +198,11 @@ class StreamSpace extends React.Component<Props, State> {
                         //         msg: "hello!222"
                         //     }
                         // ]
-                        } currentStream={this.state.currentStream} dark={this.state.dark}/>
+                        } currentStream={this.state.currentStream} dark={this.state.dark} streamList={this.state.streams} setCurrentStream={this.setCurrentStream}/>
                             <div className={Styles.thoughtModalContainer}>
                                 <div className={Styles.inputContainerThoughts}>
                                     <span className={ThoughtStyles.inputContainer}>
-                                        <input id="chatInputThought" type="text" placeholder="Write your thought here..." required/>
+                                        <input id="chatInputThought" type="text" style={ (this.state.dark ? {color:"whitesmoke"} : {color:"black"})} placeholder="Write your thought here..." required/>
                                         <button onClick={() => {
                                             if (this.state.currentStream.length > 0) {
                                                 let msgDOM:any = document.getElementById("chatInputThought");

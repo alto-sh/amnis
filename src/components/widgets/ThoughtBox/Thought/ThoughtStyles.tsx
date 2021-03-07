@@ -35,6 +35,14 @@ const Styles = {
     `,
     grabCursor: css`
         cursor:grab;
+    `,
+    optionsButton: css`
+        .dropdown-toggle:before {
+            content: none;
+        }
+    `,
+    DropdownMenu: css`
+        position: fixed !important;
     `
 }
 
