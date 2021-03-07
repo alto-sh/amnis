@@ -36,6 +36,20 @@ const Styles = {
     thoughtBoxLight: css`
         background: whitesmoke;
         color: black;
+    `,
+    pickStream: css`
+        /* background: red; */
+        height:100%;
+        text-align: center;
+
+        span {
+            position: relative;
+            top: 43%;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            font-size: 2em;
+        }
     `
 }
 

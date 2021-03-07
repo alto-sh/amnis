@@ -187,6 +187,38 @@ class StreamSpace extends React.Component<Props, State> {
                         <ThoughtBox dark={this.state.dark}/>
                         <br/>
                         <NewNote dark={this.state.dark}/>
+                        <ThoughtBox stateData={
+                        this.state.streamData
+                        // [
+                        //     {
+                        //         stream: "name",
+                        //         date: new Date().toLocaleDateString(),
+                        //         msg: "hello!"
+                        //     },
+                        //     {
+                        //         stream: "name2",
+                        //         date: new Date().toLocaleDateString(),
+                        //         msg: "hello!222"
+                        //     }
+                        // ]
+                        } currentStream={this.state.currentStream} dark={this.state.dark}/>
+                            <div className={Styles.thoughtModalContainer}>
+                                <div className={Styles.inputContainerThoughts}>
+                                    <span className={ThoughtStyles.inputContainer}>
+                                        <input id="chatInputThought" type="text" placeholder="Write your thought here..." required/>
+                                        <button onClick={() => {
+                                            if (this.state.currentStream.length > 0) {
+                                                let msgDOM:any = document.getElementById("chatInputThought");
+                                                this.updateStreamData(msgDOM.value);
+                                                msgDOM.value = "";
+                                            } else {
+                                                // console.log(this.state.currentStream, this.state.currentStream.length)
+                                                alert("Pick a stream first!")
+                                            }
+                                        }}>Send</button>
+                                    </span>
+                                </div>
+                            </div>
                     </Col>
                 </Row>
             </Template>
