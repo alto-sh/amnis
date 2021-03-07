@@ -77,7 +77,7 @@ const ThoughtStyles = {
             background: #DC3545;
         }
         input {
-            width: 20rem;
+            width: 40rem;
             border-radius: 10px 0px 0px 10px;
         }
     `,

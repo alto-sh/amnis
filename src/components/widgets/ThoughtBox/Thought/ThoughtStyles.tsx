@@ -36,6 +36,11 @@ const Styles = {
     grabCursor: css`
         cursor:grab;
     `,
+    optionsButton: css`
+        .dropdown-toggle:before {
+            content: none;
+        }
+    `,
     thoughtTrash: css`
         i {
             z-index: 1;
