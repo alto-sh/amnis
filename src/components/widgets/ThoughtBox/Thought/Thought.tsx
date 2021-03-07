@@ -9,6 +9,7 @@ type Props = {
     dark?: boolean,
     msg?: string,
     date?: string,
+    id?: string
 };
 type State = {
     grabbingStatus: boolean
@@ -43,6 +44,7 @@ export default class Thought extends React.Component<Props, State> {
                                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vulputate faucibus nisi in convallis. Aliquam fringilla nibh lacinia, molestie purus vel, lacinia sapien. Praesent sodales iaculis metus quis faucibus."
                             )}
                         </p>
+                        <span><i className="fas fa-trash"></i></span>
                     </div>
                 </Draggable>
             </div>

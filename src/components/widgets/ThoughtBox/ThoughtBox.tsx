@@ -45,7 +45,7 @@ export default class ThoughtBox extends React.Component<Props, State> {
                         this.props.stateData.map((stream:any) => {
                             console.log("STREAM MAP", stream);
                             if (stream.stream === this.props.currentStream) {
-                                return <Thought dark={this.props.dark} date={stream.date} msg={stream.msg} key={stream.stream + Math.random().toString()} />
+                                return <Thought dark={this.props.dark} date={stream.date} msg={stream.msg} id={stream.id} key={stream.stream + Math.random().toString()} />
                             }
                         })
                     ) : (

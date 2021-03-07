@@ -26,7 +26,8 @@ type State = {
     streams: any,
     modalRes: String,
     currentStream: any,
-    streamData: Array<any>
+    streamData: Array<any>,
+    currentID: string
 };
 
 //export default 
@@ -40,7 +41,8 @@ class StreamSpace extends React.Component<Props, State> {
             streams: [],
             modalRes: "placeholder",
             currentStream: "",
-            streamData: []
+            streamData: [],
+            currentID: ""
         }
 
         //@ts-expect-error
@@ -88,14 +90,26 @@ class StreamSpace extends React.Component<Props, State> {
         this.setState({ currentStream: stream })
     }
 
+    // updateCurrentID() {
+    //     this.setState({
+    //         currentID: Math.random().toString()
+    //     })
+    // }
+
     updateStreamData(msg:string) {
         if (msg.length > 0) {
+
+            let newID = Math.random().toString()
+            this.setState({currentID: newID})
+
             this.setState({ streamData: [...this.state.streamData, 
                 {
                     stream: this.state.currentStream,
                     date: new Date().toLocaleDateString(), 
-                    msg: msg
-                }] })
+                    msg: msg,
+                    id: newID
+                }] 
+            })
         }
     }
 
@@ -205,6 +219,7 @@ class StreamSpace extends React.Component<Props, State> {
                                         <button onClick={() => {
                                             if (this.state.currentStream.length > 0) {
                                                 let msgDOM:any = document.getElementById("chatInputThought");
+                                                // this.updateCurrentID();
                                                 this.updateStreamData(msgDOM.value);
                                                 msgDOM.value = "";
                                             } else {
