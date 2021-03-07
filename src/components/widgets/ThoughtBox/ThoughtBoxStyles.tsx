@@ -4,6 +4,8 @@ const Styles = {
     thoughtBox: css`
         border-radius: .7rem;
         padding: 20px;
+        height: 80vh;
+        overflow-x: hidden;
     `,
     thoughtBoxDark: css`
         background: rgba(255, 255, 255, 0.1);
